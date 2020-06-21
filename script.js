@@ -4,6 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const scoreDisplay = document.querySelector('#score');
   const startBtn = document.querySelector('#start-button');
   const width = 10;
+  let score = 0;
+  let timerId = 0;
+  let nextRandom = 0;
   const lTetromino = [
     [1, 2, width + 1, width * 2 + 1],
     [width, width + 1, width + 2, width * 2 + 2],
@@ -55,7 +58,6 @@ document.addEventListener('DOMContentLoaded', () => {
       squares[currentPosition + index].classList.remove('tetromino');
     });
   }
-  timerId = setInterval(moveDown, 300);
   function moveDown() {
     undraw();
     currentPosition += width;
@@ -83,10 +85,13 @@ document.addEventListener('DOMContentLoaded', () => {
       current.forEach((index) =>
         squares[currentPosition + index].classList.add('taken')
       );
-      random = Math.floor(Math.random() * theTetrominoes.length);
+      random = nextRandom;
+      nextRandom = Math.floor(Math.random() * theTetrominoes.length);
       current = theTetrominoes[random][currentRotation];
       currentPosition = 4;
       draw();
+      displayShape();
+      addScore();
     }
   }
   function moveLeft() {
@@ -142,5 +147,50 @@ document.addEventListener('DOMContentLoaded', () => {
     [0, 1, displayWidth, displayWidth + 1], // oTetromino
     [1, displayWidth + 1, displayWidth * 2 + 1, displayWidth * 3 + 1], // iTetromino
   ];
-  function displayShape() {}
+  function displayShape() {
+    displaySquares.forEach((square) => {
+      square.classList.remove('tetromino');
+    });
+    upNextTetrominoes[nextRandom].forEach((index) => {
+      displaySquares[displayIndex + index].classList.add('tetromino');
+    });
+  }
+  startBtn.addEventListener('click', () => {
+    if (timerId) {
+      clearInterval(timerId);
+      timerId = null;
+    } else {
+      draw();
+      timerId = setInterval(moveDown, 300);
+      if (!nextRandom) {
+        nextRandom = Math.floor(Math.random() * theTetrominoes.length);
+      }
+      displayShape();
+    }
+  });
+  function addScore() {
+    for (let i = 0; i < 199; i += width) {
+      const row = [
+        i,
+        i + 1,
+        i + 2,
+        i + 3,
+        i + 4,
+        i + 5,
+        i + 6,
+        i + 7,
+        i + 8,
+        i + 9,
+      ];
+      if (row.every((index) => squares[index].classList.contains('taken'))) {
+        score += 10;
+        scoreDisplay.innerHTML = score;
+        row.forEach((index) => {
+          squares[index].classList.remove('taken');
+        });
+        const squaresRemoved = squares.splice(i, width);
+        console.log(squaresRemoved);
+      }
+    }
+  }
 });
