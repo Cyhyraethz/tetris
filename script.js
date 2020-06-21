@@ -72,6 +72,15 @@ document.addEventListener('DOMContentLoaded', () => {
     } else if (e.keyCode === 39) {
       moveRight();
     } else if (e.keyCode === 40) {
+      while (
+        !current.some((index) =>
+          squares[currentPosition + index + width * 2].classList.contains(
+            'taken'
+          )
+        )
+      ) {
+        moveDown();
+      }
       moveDown();
     }
   }
