@@ -53,12 +53,18 @@ document.addEventListener('DOMContentLoaded', () => {
     current.forEach((index) => {
       squares[currentPosition + index].classList.add('tetromino');
       squares[currentPosition + index].style.backgroundColor = colors[random];
+      squares[currentPosition + index].style.border = '1px solid black';
+      squares[currentPosition + index].style.height = '18px';
+      squares[currentPosition + index].style.width = '18px';
     });
   }
   function undraw() {
     current.forEach((index) => {
       squares[currentPosition + index].classList.remove('tetromino');
       squares[currentPosition + index].style.backgroundColor = '';
+      squares[currentPosition + index].style.border = '';
+      squares[currentPosition + index].style.height = '20px';
+      squares[currentPosition + index].style.width = '20px';
     });
   }
   function moveDown() {
@@ -166,11 +172,17 @@ document.addEventListener('DOMContentLoaded', () => {
     displaySquares.forEach((square) => {
       square.classList.remove('tetromino');
       square.style.backgroundColor = '';
+      square.style.border = '';
+      square.style.height = '20px';
+      square.style.width = '20px';
     });
     upNextTetrominoes[nextRandom].forEach((index) => {
       displaySquares[displayIndex + index].classList.add('tetromino');
       displaySquares[displayIndex + index].style.backgroundColor =
         colors[nextRandom];
+      displaySquares[displayIndex + index].style.border = '1px solid black';
+      displaySquares[displayIndex + index].style.height = '18px';
+      displaySquares[displayIndex + index].style.width = '18px';
     });
   }
   startBtn.addEventListener('click', () => {
@@ -206,7 +218,10 @@ document.addEventListener('DOMContentLoaded', () => {
         row.forEach((index) => {
           squares[index].classList.remove('taken');
           squares[index].classList.remove('tetromino');
-          squares[index].classList.style.backgroundColor = '';
+          squares[index].style.backgroundColor = '';
+          squares[index].style.border = '';
+          squares[index].style.height = '20px';
+          squares[index].style.width = '20px';
         });
         const squaresRemoved = squares.splice(i, width);
         squares = squaresRemoved.concat(squares);
