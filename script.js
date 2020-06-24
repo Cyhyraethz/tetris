@@ -192,8 +192,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const displayWidth = 4;
   const displayIndex = 0;
   const upNextTetrominoes = [
-    [1, 2, displayWidth + 1, displayWidth * 2 + 1], // lTetromino
-    [0, displayWidth, displayWidth + 1, displayWidth * 2 + 1], // zTetromino
+    [1, 2, displayWidth + 2, displayWidth * 2 + 2], // lTetromino
+    [1, 2, displayWidth + 1, displayWidth * 2 + 1], // jTetromino
+    [1, displayWidth, displayWidth + 1, displayWidth * 2], // zTetromino
+    [0, displayWidth, displayWidth + 1, displayWidth * 2 + 1], // sTetromino
     [1, displayWidth, displayWidth + 1, displayWidth + 2], // tTetromino
     [0, 1, displayWidth, displayWidth + 1], // oTetromino
     [1, displayWidth + 1, displayWidth * 2 + 1, displayWidth * 3 + 1], // iTetromino
