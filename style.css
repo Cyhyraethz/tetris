@@ -1,3 +1,8 @@
+body {
+  background-color: #424242;
+  color: #e0e0e0;
+}
+
 .container {
   display: flex;
 }
@@ -7,7 +12,7 @@
   height: 400px;
   display: flex;
   flex-wrap: wrap;
-  background-color: yellow;
+  background-color: #0288d1;
 }
 
 .grid div {
@@ -21,10 +26,17 @@
   display: flex;
   flex-wrap: wrap;
   margin-left: 50px;
-  background-color: yellow;
+  background-color: #0288d1;
 }
 
 .mini-grid div {
   height: 20px;
   width: 20px;
+}
+
+#start-button {
+  background-color: #424242;
+  margin-bottom: 20px;
+  border-radius: 10%;
+  color: #e0e0e0;
 }

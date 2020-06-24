@@ -1,5 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => {
   const grid = document.querySelector('.grid');
+  const mini = document.querySelector('.mini-grid');
+  for (let i = 0; i < 210; i++) {
+    let square = document.createElement('div');
+    if (i > 199) {
+      square.classList.add('taken');
+    }
+    grid.appendChild(square);
+  }
+  for (let i = 0; i < 16; i++) {
+    let square = document.createElement('div');
+    mini.appendChild(square);
+  }
   let squares = Array.from(document.querySelectorAll('.grid div'));
   const scoreDisplay = document.querySelector('#score');
   const startBtn = document.querySelector('#start-button');
@@ -7,14 +19,34 @@ document.addEventListener('DOMContentLoaded', () => {
   let score = 0;
   let timerId = 0;
   let nextRandom = 0;
-  const colors = ['orange', 'red', 'purple', 'green', 'blue'];
+  const colors = [
+    'orange',
+    'blue',
+    'red',
+    'green',
+    'purple',
+    'yellow',
+    'indigo',
+  ];
   const lTetromino = [
+    [1, 2, width + 2, width * 2 + 2],
+    [width, width + 1, width + 2, width * 2],
+    [1, width + 1, width * 2 + 1, width * 2 + 2],
+    [width + 2, width * 2, width * 2 + 1, width * 2 + 2],
+  ];
+  const jTetromino = [
     [1, 2, width + 1, width * 2 + 1],
     [width, width + 1, width + 2, width * 2 + 2],
     [1, width + 1, width * 2, width * 2 + 1],
     [width, width * 2, width * 2 + 1, width * 2 + 2],
   ];
   const zTetromino = [
+    [1, width, width + 1, width * 2],
+    [width, width + 1, width * 2 + 1, width * 2 + 2],
+    [1, width, width + 1, width * 2],
+    [width, width + 1, width * 2 + 1, width * 2 + 2],
+  ];
+  const sTetromino = [
     [0, width, width + 1, width * 2 + 1],
     [width + 1, width + 2, width * 2, width * 2 + 1],
     [0, width, width + 1, width * 2 + 1],
@@ -40,7 +72,9 @@ document.addEventListener('DOMContentLoaded', () => {
   ];
   const theTetrominoes = [
     lTetromino,
+    jTetromino,
     zTetromino,
+    sTetromino,
     tTetromino,
     oTetromino,
     iTetromino,
