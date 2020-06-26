@@ -3,6 +3,19 @@ body {
   color: #e0e0e0;
 }
 
+button {
+  background-color: #424242;
+  margin-bottom: 20px;
+  margin-right: 32px;
+  border-radius: 10%;
+  color: #e0e0e0;
+}
+
+h3 {
+  display: inline;
+  margin-right: 50px;
+}
+
 .container {
   display: flex;
 }
@@ -40,11 +53,4 @@ body {
   border-right: 1px solid #0288d1;
   height: 19px;
   width: 19px;
-}
-
-#start-button {
-  background-color: #424242;
-  margin-bottom: 20px;
-  border-radius: 10%;
-  color: #e0e0e0;
 }
