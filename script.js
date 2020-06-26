@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const scoreDisplay = document.querySelector('#score');
   const startBtn = document.querySelector('#start-button');
   const restartBtn = document.querySelector('#restart-button');
+  const resetBtn = document.querySelector('#reset-button');
   const width = 10;
   let score = 0;
   let timerId = 0;
@@ -228,6 +229,9 @@ document.addEventListener('DOMContentLoaded', () => {
   restartBtn.addEventListener('click', () => {
     restart();
   });
+  resetBtn.addEventListener('click', () => {
+    reset();
+  });
   function addScore() {
     for (let i = 0; i < 199; i += width) {
       const row = [
@@ -279,10 +283,32 @@ document.addEventListener('DOMContentLoaded', () => {
       squares[i].classList.remove('tetromino');
       squares[i].style.backgroundColor = '';
     }
-    draw();
+    displaySquares.forEach((square) => {
+      square.classList.remove('tetromino');
+      square.style.backgroundColor = '';
+    });
     clearInterval(timerId);
     timerId = setInterval(moveDown, 1000);
     nextRandom = Math.floor(Math.random() * theTetrominoes.length);
+    draw();
     displayShape();
+  }
+  function reset() {
+    currentPosition = 4;
+    currentRotation = 0;
+    random = Math.floor(Math.random() * theTetrominoes.length);
+    current = theTetrominoes[random][currentRotation];
+    for (let i = 0; i < 200; i++) {
+      squares[i].classList.remove('taken');
+      squares[i].classList.remove('tetromino');
+      squares[i].style.backgroundColor = '';
+    }
+    displaySquares.forEach((square) => {
+      square.classList.remove('tetromino');
+      square.style.backgroundColor = '';
+    });
+    clearInterval(timerId);
+    timerId = null;
+    nextRandom = null;
   }
 });
