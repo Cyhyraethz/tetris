@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const width = 10;
   let level = 1;
   let score = 0;
+  let speed = 0;
   let timerId = 0;
   let nextRandom = 0;
   const colors = [
@@ -221,7 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
       timerId = null;
     } else {
       draw();
-      timerId = setInterval(moveDown, 1000);
+      timerId = setInterval(moveDown, 1000 - speed);
       if (!nextRandom) {
         nextRandom = Math.floor(Math.random() * theTetrominoes.length);
       }
@@ -234,6 +235,15 @@ document.addEventListener('DOMContentLoaded', () => {
   resetBtn.addEventListener('click', () => {
     reset();
   });
+  function levelUp() {
+    if (speed < 900) {
+      speed += 100;
+      level++;
+      levelDisplay.innerHTML = level;
+    }
+    clearInterval(timerId);
+    timerId = setInterval(moveDown, 1000 - speed);
+  }
   function addScore() {
     for (let i = 0; i < 199; i += width) {
       const row = [
@@ -250,11 +260,10 @@ document.addEventListener('DOMContentLoaded', () => {
       ];
       if (row.every((index) => squares[index].classList.contains('taken'))) {
         score += 10;
-        if (score % 10 === 0) {
-          level++;
+        if (score % 100 === 0) {
+          f;
         }
         scoreDisplay.innerHTML = score;
-        levelDisplay.innerHTML = level;
         row.forEach((index) => {
           squares[index].classList.remove('taken');
           squares[index].classList.remove('tetromino');
@@ -280,6 +289,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
   function restart() {
+    level = 1;
+    score = 0;
+    speed = 0;
     currentPosition = 4;
     currentRotation = 0;
     random = Math.floor(Math.random() * theTetrominoes.length);
@@ -294,12 +306,15 @@ document.addEventListener('DOMContentLoaded', () => {
       square.style.backgroundColor = '';
     });
     clearInterval(timerId);
-    timerId = setInterval(moveDown, 1000);
+    timerId = setInterval(moveDown, 1000 - speed);
     nextRandom = Math.floor(Math.random() * theTetrominoes.length);
     draw();
     displayShape();
   }
   function reset() {
+    level = 1;
+    score = 0;
+    speed = 0;
     currentPosition = 4;
     currentRotation = 0;
     random = Math.floor(Math.random() * theTetrominoes.length);
