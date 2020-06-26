@@ -16,10 +16,12 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   let squares = Array.from(document.querySelectorAll('.grid div'));
   const scoreDisplay = document.querySelector('#score');
+  const levelDisplay = document.querySelector('#level');
   const startBtn = document.querySelector('#start-button');
   const restartBtn = document.querySelector('#restart-button');
   const resetBtn = document.querySelector('#reset-button');
   const width = 10;
+  let level = 1;
   let score = 0;
   let timerId = 0;
   let nextRandom = 0;
@@ -248,7 +250,11 @@ document.addEventListener('DOMContentLoaded', () => {
       ];
       if (row.every((index) => squares[index].classList.contains('taken'))) {
         score += 10;
+        if (score % 10 === 0) {
+          level++;
+        }
         scoreDisplay.innerHTML = score;
+        levelDisplay.innerHTML = level;
         row.forEach((index) => {
           squares[index].classList.remove('taken');
           squares[index].classList.remove('tetromino');
