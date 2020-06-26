@@ -244,6 +244,10 @@ document.addEventListener('DOMContentLoaded', () => {
     clearInterval(timerId);
     timerId = setInterval(moveDown, 1000 - speed);
   }
+  function increaseScore() {
+    score += 10;
+    scoreDisplay.innerHTML = score;
+  }
   function addScore() {
     for (let i = 0; i < 199; i += width) {
       const row = [
@@ -259,11 +263,10 @@ document.addEventListener('DOMContentLoaded', () => {
         i + 9,
       ];
       if (row.every((index) => squares[index].classList.contains('taken'))) {
-        score += 10;
+        increaseScore();
         if (score % 100 === 0) {
-          f;
+          levelUp();
         }
-        scoreDisplay.innerHTML = score;
         row.forEach((index) => {
           squares[index].classList.remove('taken');
           squares[index].classList.remove('tetromino');
