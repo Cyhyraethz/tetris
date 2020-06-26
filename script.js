@@ -272,9 +272,11 @@ document.addEventListener('DOMContentLoaded', () => {
           squares[index].classList.remove('tetromino');
           squares[index].style.backgroundColor = '';
         });
+        // Fix problem with new tetromino showing up a row lower than it should
         const squaresRemoved = squares.splice(i, width);
         squares = squaresRemoved.concat(squares);
         squares.forEach((cell) => grid.appendChild(cell));
+        // Fix problem with new tetromino showing up a row lower than it should
       }
     }
   }
