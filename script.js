@@ -212,7 +212,9 @@ document.addEventListener('DOMContentLoaded', () => {
         (index) => (currentPosition + index - 9) % width === 0
       )
     ) {
+      // bug: tetromino seems to not moving left here
       moveLeft();
+      // bug: tetromino seems to not moving left here
       undraw();
       currentRotation++;
       if (currentRotation === current.length) {
@@ -314,11 +316,9 @@ document.addEventListener('DOMContentLoaded', () => {
           squares[index].classList.remove('tetromino');
           squares[index].style.backgroundColor = '';
         });
-        // Fix problem with new tetromino showing up a row lower than it should
         const squaresRemoved = squares.splice(i, width);
         squares = squaresRemoved.concat(squares);
         squares.forEach((cell) => grid.appendChild(cell));
-        // Fix problem with new tetromino showing up a row lower than it should
       }
     }
   }
@@ -380,3 +380,7 @@ document.addEventListener('DOMContentLoaded', () => {
     nextRandom = null;
   }
 });
+// bug: problem with rotate function when tetromino is at right wall
+// bug: tetrominoes can still be moved and rotated while game is paused
+// bug: tetrominoes can still be moved and rotated before game has been started
+// to do: make holding down right or left move tetromino that direction repeatedly
