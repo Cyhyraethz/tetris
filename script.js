@@ -144,10 +144,10 @@ document.addEventListener('DOMContentLoaded', () => {
       nextRandom = Math.floor(Math.random() * theTetrominoes.length);
       current = theTetrominoes[random][currentRotation];
       currentPosition = 4;
-      draw();
       displayShape();
       addScore();
       gameOver();
+      draw();
     }
   }
   function moveLeft() {
@@ -185,13 +185,55 @@ document.addEventListener('DOMContentLoaded', () => {
     draw();
   }
   function rotate() {
-    undraw();
-    currentRotation++;
-    if (currentRotation === current.length) {
-      currentRotation = 0;
+    let nextRotation = currentRotation + 1;
+    if (nextRotation === current.length) {
+      nextRotation = 0;
     }
-    current = theTetrominoes[random][currentRotation];
-    draw();
+    if (
+      theTetrominoes[random][nextRotation].some(
+        (index) => (currentPosition + index) % width === 0
+      )
+    ) {
+      moveRight();
+      undraw();
+      currentRotation++;
+      if (currentRotation === current.length) {
+        currentRotation = 0;
+      }
+      current = theTetrominoes[random][currentRotation];
+      while (
+        !current.some((index) => (currentPosition + index) % width === 0)
+      ) {
+        moveLeft();
+      }
+      draw();
+    } else if (
+      theTetrominoes[random][nextRotation].some(
+        (index) => (currentPosition + index - 9) % width === 0
+      )
+    ) {
+      moveLeft();
+      undraw();
+      currentRotation++;
+      if (currentRotation === current.length) {
+        currentRotation = 0;
+      }
+      current = theTetrominoes[random][currentRotation];
+      while (
+        !current.some((index) => (currentPosition + index - 9) % width === 0)
+      ) {
+        moveRight();
+      }
+      draw();
+    } else {
+      undraw();
+      currentRotation++;
+      if (currentRotation === current.length) {
+        currentRotation = 0;
+      }
+      current = theTetrominoes[random][currentRotation];
+      draw();
+    }
   }
   const displaySquares = document.querySelectorAll('.mini-grid div');
   const displayWidth = 4;
